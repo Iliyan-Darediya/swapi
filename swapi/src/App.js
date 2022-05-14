@@ -1,23 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { Context } from './Context';
+import { useState, useContext, useEffect } from 'react';
+import ListOfMovies from './component/ListOfMovies';
 function App() {
+  const {data} = useContext(Context)
+
+  const [url,setUrl] = useState("")
+  
+  useEffect(()=>{
+    console.log("dsds",url)
+  },[url])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <label>Character:</label>
+      <select className="form-select" onChange={event=>setUrl(event.target.value)}>
+        {data.map(item=><option key={item.name} value={item.url}>{item.name}</option>)}
+      </select>
+      <ListOfMovies url={url}/>
     </div>
   );
 }
